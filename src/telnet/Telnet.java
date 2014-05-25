@@ -29,19 +29,40 @@ import java.util.Iterator;
 import logs.Logger;
 
 /**
- *
+ * Główna klasa telnet.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public class Telnet implements TelnetObservable {
-
+    /**
+     * Tablica obserwatorów klasy telnet.
+     */
     private final ArrayList<TelnetObserver> observers = new ArrayList<>();
 
+    /**
+     * Bufor połączenia z którego czytamy i do którego piszemy.
+     */
     private final ConnectionBuffer buffer;
 
+    /**
+     * Konstruktor klasy Telnet. <br>
+     * Pobiera za pomocą statycznej klasy ConnectionGiver odpowiedni bufor zapisu i odczytu.
+     * @param hostname
+     * Adres ip serwera.
+     * @param port
+     * Port na który jest wykonywane połączenie.
+     * @throws UnknownHostException
+     * Nieznany host.
+     * @throws IOException 
+     */
     public Telnet(String hostname, int port) throws UnknownHostException, IOException {
         this.buffer = ConnectionGiver.returnBuffer(port, hostname);
     }
 
+    /**
+     * Handshake Telnetu. <br>
+     * Tutaj zawiązywane jest początkowe połącznie, ustalane są wszelkie parametry połączenia.
+     * @throws IOException 
+     */
     public void handshake() throws IOException {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(Commands.IAC);
@@ -70,6 +91,12 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Pisanie do serwera. Wysłanie tekstu do terminala serwera.
+     * @param text
+     * Tekst do wpisany do terminala.
+     * @throws IOException 
+     */
     public void write(String text) throws IOException {
         Option option = Option.getInstance(Options.ECHO);
         if (option.isNegotiated()) {
@@ -80,6 +107,7 @@ public class Telnet implements TelnetObservable {
             }
             list.add(13);
             buffer.write(list);
+            //read();
             list = buffer.read(list.size() + 1);
             StringBuilder textCheck = new StringBuilder();
             for (Iterator<Integer> it = list.iterator(); it.hasNext();) {
@@ -92,6 +120,10 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Odczytywanie informacji z terminala serwera i wywołanie wyświetlenia jej na odpowiedni Widok aplikacji.
+     * @throws IOException 
+     */
     public void read() throws IOException {
         Option option = Option.getInstance(Options.ECHO);
         ArrayList<Integer> list = buffer.read();
@@ -104,6 +136,12 @@ public class Telnet implements TelnetObservable {
         notifyTelnet(text.toString());
     }
 
+    /**
+     * Wysłanie pojedyńczej komendy do serwera Telnet.
+     * @param command
+     * Kod liczbowy komendy.
+     * @throws IOException 
+     */
     public void sendCommand(int command) throws IOException{
         ArrayList<Integer> list = new ArrayList<>();
         for (int c : Commands.COMMANDS) {
@@ -115,6 +153,12 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Przetwarzanie komendy i wykonanie specjalnej odpowiedzi.
+     * @param list
+     * Odebrane dane do przetworzenia w postaci listy.
+     * @throws IOException 
+     */
     private void CommandProcess(ArrayList<Integer> list) throws IOException {
         int iterator = 0;
         int code = 0;
@@ -143,6 +187,12 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Sprawdzenie czy komenda jest zaimplementowana.
+     * @param code
+     * Kod liczbowy komendy.
+     * @return 
+     */
     private boolean isImplemented(int code) {
         boolean implemented = false;
         for (int i : Options.IMPLEMENTED) {
@@ -153,11 +203,21 @@ public class Telnet implements TelnetObservable {
         return implemented;
     }
 
+    /**
+     * Zarejestrowanie obserwatora.
+     * @param o 
+     * Obserwator
+     */
     @Override
     public void registerObserver(TelnetObserver o) {
         observers.add(o);
     }
 
+    /**
+     * Usunięcie obserwatora.
+     * @param o 
+     * Obserwator
+     */
     @Override
     public void removeObserver(TelnetObserver o) {
         int i = observers.indexOf(o);
@@ -166,13 +226,30 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Powiadomienie Kontrolera o informacji do wyświetlenia na Modelu. <br>
+     * Przekazanie tej informacji w formie argumentu funkcji.
+     * @param text 
+     */
     @Override
     public void notifyTelnet(String text) {
         for (TelnetObserver o : observers) {
             o.updateTelnet(text);
         }
     }
-
+    
+    /**
+     * Wykonanie instrukcji dla komendy, przy odebraniu instrukcji DO
+     * @param list
+     * Lista danych.
+     * @param iterator
+     * Iterator
+     * @param tmp
+     * @param code
+     * @param implemented
+     * @param write
+     * @throws IOException 
+     */
     private void doCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented, ArrayList<Integer> write) throws IOException {
         list.addAll(buffer.read(1));
         iterator++;
@@ -190,6 +267,16 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Wykonanie instrukcji dla komendy, przy odebraniu instrukcji WILL
+     * @param list
+     * @param iterator
+     * @param tmp
+     * @param code
+     * @param implemented
+     * @param write
+     * @throws IOException 
+     */
     private void willCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented, ArrayList write) throws IOException {
         list.addAll(buffer.read(1));
         iterator++;
@@ -207,6 +294,15 @@ public class Telnet implements TelnetObservable {
         }
     }
 
+    /**
+     * Wykonanie instrukcji dla komendy, przy odebraniu instrukcji SB
+     * @param list
+     * @param iterator
+     * @param tmp
+     * @param code
+     * @param implemented
+     * @throws IOException 
+     */
     private void sbCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented) throws IOException {
         list.addAll(buffer.read(1));
         iterator++;

@@ -23,7 +23,8 @@ import telnet.Commands;
 import telnet.Options;
 
 /**
- *
+ * Opcja Echo @see <a href =
+ * "http://tools.ietf.org/html/rfc857">RFC857</a>
  * @author TheDamianAbel
  */
 public class Echo extends Option {
@@ -35,6 +36,10 @@ public class Echo extends Option {
         code = Options.ECHO;
     }
     
+    /**
+     * Zwrócenie danej instancji opcji. Implementacja wzorca Singleton.
+     * @return 
+     */
     public static Echo getInstance(){
         if(instance == null){
             instance = new Echo();
@@ -42,6 +47,11 @@ public class Echo extends Option {
         return instance;
     }
 
+    /**
+     * Wykonywanie odpowiedzi na wiadomość z serwera: WILL ECHO
+     * @param buffer
+     * @throws IOException 
+     */
     @Override
     public void will(ConnectionBuffer buffer) throws IOException {
         ArrayList<Integer> list = new ArrayList<>();
@@ -52,6 +62,11 @@ public class Echo extends Option {
         negotiated = true;
     }
 
+    /**
+     * Wykonanie odpowiedzi na wiadomość z serwera: DO ECHO
+     * @param buffer
+     * @throws IOException 
+     */
     @Override
     public void doo(ConnectionBuffer buffer) throws IOException {
         ArrayList<Integer> list = new ArrayList<>();
@@ -61,6 +76,12 @@ public class Echo extends Option {
         buffer.write(list);
     }
 
+    /**
+     * Wysłanie poszczególnych ustawień związanych z opcją do serwera.<br>
+     * brak specjalnych ustawień
+     * @param buffer
+     * @throws IOException 
+     */
     @Override
     public void sentSetting(ConnectionBuffer buffer) throws IOException {
     }

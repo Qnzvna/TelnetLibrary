@@ -17,10 +17,9 @@
 package telnet;
 
 /**
- * Contains options code, and options objects.
- * <p>
- * Only implemented options are commented.
- *
+ * Zawiera wszystkie opcje telnetu.
+ * <br>
+ * Tylko zaimplementowane opcję są okomentowane.
  * @author TheDamianAbel
  */
 public class Options {
@@ -62,7 +61,8 @@ public class Options {
     public static final int SEND_LOCATION = 23;
 
     /**
-     * Telnet Terminal-Type RFC1091 see <http://tools.ietf.org/html/rfc1091>
+     * Telnet Terminal-Type RFC1091 @see <a
+     * href = "http://tools.ietf.org/html/rfc1091">RFC1091</a>
      */
     public static final int TERMINAL_TYPE = 24;
     public static final int END_OF_RECORD = 25;

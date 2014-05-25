@@ -24,13 +24,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- *
+ * Klasa statyczna wydająca bufer do konkretnego połączenia.<br>
+ * Implementuje para-wzorzec Fabryka.
  * @author abel
  */
 public class ConnectionGiver {
     
     /**
-     * Create and return ConnectionBuffer.
+     * Tworzy i zwraca ConnectionBuffer.
      * @param port Port
      * @param hostname Hostname
      * @return ConnectionBuffer

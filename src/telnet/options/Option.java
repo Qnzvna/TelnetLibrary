@@ -21,7 +21,7 @@ import connection.ConnectionBuffer;
 import java.io.IOException;
 
 /**
- *
+ * Klasa po której dziedziczą wszystkie opcje.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public abstract class Option {
@@ -52,6 +52,11 @@ public abstract class Option {
         sentDo = false;
     }
     
+    /**
+     * Zwrócenie danej instancji opcji. Wzorzec Singleton, oraz meta-wzorzec Fabryka.
+     * @param code
+     * @return 
+     */
     public static Option getInstance(int code){
         Option instance = null;
         switch(code){
@@ -68,41 +73,87 @@ public abstract class Option {
         return instance;
     }
     
-    
+    /**
+     * Sprawdzenie czy opcja jest wynegocjowana.
+     * @return 
+     */
     public boolean isNegotiated(){
         return negotiated;
     }
     
+    /**
+     * Sprawdzenie czy wysłano zapytanie opcji.
+     * @return 
+     */
     public boolean isRequest(){
         return sentRequest;
     }
     
+    /**
+     * Sprawdzenie czy odebrano komendę DO na tej opcji.
+     * @return 
+     */
     public boolean isDo(){
         return sentDo;
     }
     
+    /**
+     * Pobranie kodu opcji.
+     * @return 
+     */
     public int getCode(){
         return code;
     }
     
+    /**
+     * Ustawienie negocjacji opcji.
+     * @param negotiated 
+     */
     public void setNegotiated(boolean negotiated){
         this.negotiated = negotiated;
     }
     
+    /**
+     * Ustawienie zapytania opcji.
+     * @param sentRequest 
+     */
     public void setRequest(boolean sentRequest){
         this.sentRequest = sentRequest;
     }
     
+    /**
+     * Ustawienie komendy DO
+     * @param sentDo 
+     */
     public void setDo(boolean sentDo){
         this.sentDo = sentDo;
     }
     
+    /**
+     * Ustawienie specjalnych ustawień opcji.
+     * @param setting 
+     */
     public void setSetting(String setting){
         this.setting = setting;
     }
 
+    /**
+     * Abstrakcyjna metoda odpowiednich instrukcji na wiadomość WILL.
+     * @param buffer
+     * @throws IOException 
+     */
     public abstract void will(ConnectionBuffer buffer) throws IOException;
+    /**
+     * Abstrakcyjna metoda odpowiednich instrukcji na wiadomość DO.
+     * @param buffer
+     * @throws IOException 
+     */
     public abstract void doo(ConnectionBuffer buffer) throws IOException;
+    /**
+     * Abstrakcyjna metoda na wysłanie ustawień specjalnych.
+     * @param buffer
+     * @throws IOException 
+     */
     public abstract void sentSetting(ConnectionBuffer buffer) throws IOException;
     
 }

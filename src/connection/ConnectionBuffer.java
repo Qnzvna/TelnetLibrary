@@ -24,8 +24,7 @@ import java.util.ArrayList;
 import logs.Logger;
 
 /**
- * ConnectionBuffer
- *
+ * Bufor przechowujący potrzebne informacje do zarządzania połączenia oraz czytania i zapisywanie do odpowiednich strumieni.
  * @author abel
  */
 public class ConnectionBuffer {
