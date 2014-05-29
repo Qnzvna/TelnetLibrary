@@ -21,7 +21,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import logs.Logger;
+import logs.MyLogger;
 
 /**
  * Bufor przechowujący potrzebne informacje do zarządzania połączenia oraz czytania i zapisywanie do odpowiednich strumieni.
@@ -83,13 +83,13 @@ public class ConnectionBuffer {
             writer.write(tmp);
         }
         writer.flush();
-        Logger.log("Flushing...\n" + list.toString());
+        MyLogger.log("Flushing...\n" + list.toString());
     }
     
     public void write(int i) throws IOException{
         writer.write(i);
         writer.flush();
-        Logger.log("Flushing...\n" + (char) i);
+        MyLogger.log("Flushing...\n" + (char) i);
     }
 
 }

@@ -26,10 +26,35 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import logs.Logger;
+import logs.MyLogger;
 
 /**
  * Główna klasa telnet.
+ * <p>
+ * Przykładowe, a zarazem podstawowe użycie klasy w Kontrolerze.
+ * <p>
+ * <pre>
+ * {@code
+ * telnet = new Telnet(host, port);
+ * telnet.registerObserver(this);
+ * telnet.handshake();
+ * while (loop) {
+ *  telnet.read();
+ * }
+ * }
+ * </pre>
+ * 
+ * Pełna biblioteka Telnet-u korzysta z modelu <b>Model-Widok-Kontroller</b>. 
+ * Do poprawnego z niej korzystania korzystne są odpowiedni <b>Widok</b> oraz <b>Kontroler</b>.
+ * 
+ * <b>Kontroler</b> musi implementować {@link observer.TelnetObserver} oraz {@link observer.ViewObserver}. 
+ * Tworzyć nową instancję Telnetu i następnie rejestrować ją jako obserwatora. 
+ * Klasa <b>Widoku</b> musi implementować {@link observer.ViewObservable} i 
+ * również powinna być zarejestrowana jako obserwator w <b>Kontrolerze</b>
+ * 
+ * Zastosowanie tego wzorca projektowego umożliwia i usprawnia korzystanie z biblioteki 
+ * przy wykorzystaniu wszelakich interfejsów graficznych implementujących odpowiednie interfejsy.
+ * 
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public class Telnet implements TelnetObservable {
@@ -46,12 +71,9 @@ public class Telnet implements TelnetObservable {
     /**
      * Konstruktor klasy Telnet. <br>
      * Pobiera za pomocą statycznej klasy ConnectionGiver odpowiedni bufor zapisu i odczytu.
-     * @param hostname
-     * Adres ip serwera.
-     * @param port
-     * Port na który jest wykonywane połączenie.
+     * @param hostname Adres ip serwera.
+     * @param port Port na który jest wykonywane połączenie.
      * @throws UnknownHostException
-     * Nieznany host.
      * @throws IOException 
      */
     public Telnet(String hostname, int port) throws UnknownHostException, IOException {
@@ -59,8 +81,9 @@ public class Telnet implements TelnetObservable {
     }
 
     /**
-     * Handshake Telnetu. <br>
+     * Handshake Telnetu. <p>
      * Tutaj zawiązywane jest początkowe połącznie, ustalane są wszelkie parametry połączenia.
+     * Metoda jest konieczna do wywołania przed metodą {@link telnet.Telnet#read() }.
      * @throws IOException 
      */
     public void handshake() throws IOException {
@@ -81,7 +104,7 @@ public class Telnet implements TelnetObservable {
             try {
                 list.get(0);
             } catch (IndexOutOfBoundsException ex) {
-                Logger.log(ex.toString());
+                MyLogger.log(ex.toString());
             }
             if (list.get(0) == Commands.IAC) {
                 CommandProcess(list);
@@ -108,15 +131,16 @@ public class Telnet implements TelnetObservable {
             list.add(13);
             buffer.write(list);
             //read();
+            //Sciaganie odpowiedzi, bo nie wspieramy NVT Terminal
             list = buffer.read(list.size() + 1);
             StringBuilder textCheck = new StringBuilder();
             for (Iterator<Integer> it = list.iterator(); it.hasNext();) {
                 int i = it.next();
                 textCheck.append((char) i);
             }
-            Logger.log("Check: " + textCheck.toString());
+            MyLogger.log("Check: " + textCheck.toString());
         } else {
-            Logger.log("Error, error, write and not echo negotiated.");
+            MyLogger.log("Error, error, write and not echo negotiated.");
         }
     }
 
@@ -132,7 +156,7 @@ public class Telnet implements TelnetObservable {
             int i = it.next();
             text.append((char) i);
         }
-        Logger.log("Message: " + text.toString());
+        MyLogger.log("Message: " + text.toString());
         notifyTelnet(text.toString());
     }
 

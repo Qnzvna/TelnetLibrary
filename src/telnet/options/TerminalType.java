@@ -21,9 +21,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import telnet.Commands;
 import telnet.Options;
+import telnet.Settings;
 
 /**
- *
+ * Opcja Terminal Type <a href="http://www.ietf.org/rfc/rfc1091.txt">RFC1091</a>
  * @author TheDamianAbel
  */
 public class TerminalType extends Option {
@@ -33,7 +34,7 @@ public class TerminalType extends Option {
     private TerminalType(){
         super();
         code = Options.TERMINAL_TYPE;
-        setting = "xterm";
+        setting = Settings.getTerminal_type();
     }
     
     public static TerminalType getInstance(){

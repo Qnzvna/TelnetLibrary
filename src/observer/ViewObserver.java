@@ -20,7 +20,7 @@ package observer;
 import java.io.IOException;
 
 /**
- *
+ * Interfejs podmiot obserwujący po stronie widoku. Implementuje wzorzec Obserwator.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public interface ViewObserver {

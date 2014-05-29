@@ -99,7 +99,7 @@ public class Options {
      };*/
 
     /**
-     * Contains all implemented options.
+     * Zawiera wszystkie zaimplementowane opcje.
      */
     public static final int[] IMPLEMENTED = {
         TERMINAL_TYPE, SUPPRESS_GO_AHEAD, ECHO

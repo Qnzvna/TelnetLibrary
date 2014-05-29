@@ -23,7 +23,7 @@ import telnet.Commands;
 import telnet.Options;
 
 /**
- *
+ * Opcja Suppress Go Ahead <a href="http://www.ietf.org/rfc/rfc858.txt">RFC858</a>
  * @author TheDamianAbel
  */
 public class SuppressGoAhead extends Option{

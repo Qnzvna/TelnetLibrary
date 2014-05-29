@@ -17,11 +17,31 @@
 
 package telnet;
 
+
 /**
- *
+ * Klasa do ustawień klienta serwera.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public class Settings {
+    
+    /**
+     * Ustawienia Terminal_Type
+     */
+    private static String terminal_type;
+
+    /**
+     * @return the terminal_type
+     */
+    public static String getTerminal_type() {
+        return terminal_type;
+    }
+
+    /**
+     * @param terminal_type the terminal_type to set
+     */
+    public static void setTerminal_type(String terminal_type) {
+        Settings.terminal_type = terminal_type;
+    }
     
     
 }

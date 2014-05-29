@@ -77,7 +77,7 @@ public class Echo extends Option {
     }
 
     /**
-     * Wysłanie poszczególnych ustawień związanych z opcją do serwera.<br>
+     * Wysłanie poszczególnych ustawień związanych z opcją do serwera.<p>
      * brak specjalnych ustawień
      * @param buffer
      * @throws IOException 

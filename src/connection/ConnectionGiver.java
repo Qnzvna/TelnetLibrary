@@ -32,6 +32,8 @@ public class ConnectionGiver {
     
     /**
      * Tworzy i zwraca ConnectionBuffer.
+     * <p>
+     * Implementuje meta-wzorzec Fabryka.
      * @param port Port
      * @param hostname Hostname
      * @return ConnectionBuffer

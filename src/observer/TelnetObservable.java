@@ -17,10 +17,8 @@
 
 package observer;
 
-import java.util.ArrayList;
-
 /**
- *
+ * Interfejs podmiot obserwowany po stronie Telnetu. Implementuje wzorzec projektowy Obserwator.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public interface TelnetObservable {

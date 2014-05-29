@@ -17,15 +17,22 @@
 package telnet;
 
 /**
- *
+ * Klasa przechowywująca komendy Telnetu.
  * @author TheDamianAbel
  */
 public class Commands {
 
     // ###COMMANDS START###
-    //End of subnegotiation parameters.
+    /**
+     * Komenda SE
+     * <p>
+     * Koniec subnegocjacji opcji Telnetowej.
+     */
     public static final int SE = 240;
-    //No operation.
+    
+    /**
+     * Komenda NOP (No operation)
+     */
     public static final int NOP = 241;
     //The data stream portion of a Synch.
     public static final int DATA_MARK = 242;
@@ -35,7 +42,9 @@ public class Commands {
     public static final int INTERRUPT_PROCESS = 244;
     //The function AO.
     public static final int ABORT_OUTPUT = 245;
-    //The function AYT.
+    /**
+     * Komenda AYT 
+     */
     public static final int ARE_YOU_THERE = 246;
     //The function EC.
     public static final int EREASE_CHAR = 247;
@@ -44,20 +53,50 @@ public class Commands {
     //The GA signal.
     public static final int GA = 249;
     //The SB signal. Suboption
+    /**
+     * Komenda SB (Suboption)
+     * <p>
+     * Po tej komendzie wysyłana jest opcja Telnetu.
+     */
     public static final int SB = 250;
     /*Indicates the desire to beginperforming, or confirmation that you are now 
      performing, theindicated option.*/
+    /**
+     * Komenda WILL
+     * <p>
+     * Oznacza rozpoczęcie lub potwierdzenie poprzedzającej opcji.
+     */
     public static final int WILL = 251;
     //Indicates the refusal to perform,or continue performing, the indicated option.
+    /**
+     * Komenda WONT
+     * <p>
+     * Oznacza odmowę poprzedzającej opcji.
+     */
     public static final int WONT = 252;
     /*Indicates the request that the other party perform, or confirmation that
      you are expecting the other party to perform, the indicated option.*/
+    /**
+     * Komenda DO
+     * <p>
+     * Oznacza odpowiedź na rozpoczęcie subnegocjacji lub potwierdzenie oczekiwania na podanie ustawień opcji.
+     */
     public static final int DO = 253;
     /*Indicates the demand that theother party stop performing, or confirmation 
      that you are no longer expecting the other party to perform,
      the indicated option.*/
+    /**
+     * Komenda DONT
+     * <p>
+     * Oznacza przerwanie subnegocjacji lub potwierdzenie, ze nie oczekujemy już na daną opcję.
+     */
     public static final int DONT = 254;
     //Data Byte 255.
+    /**
+     * Komenda IAC
+     * <p>
+     * Poprzedza wszelkie inne komendy Telnetu.
+     */
     public static final int IAC = 255;
 
     public static final int[] COMMANDS = {

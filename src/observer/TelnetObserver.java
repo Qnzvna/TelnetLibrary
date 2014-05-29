@@ -18,7 +18,7 @@
 package observer;
 
 /**
- *
+ * Interfejs obserwator po stronie Telnetu. Implementuje wzorzec Obserwator
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public interface TelnetObserver {

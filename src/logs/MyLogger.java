@@ -21,17 +21,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- *
+ * Klasa do logowania błędów i komunikatów
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
-public class Logger {
+public class MyLogger {
 
     public static boolean on = false;
 
-    private Logger() {
+    private MyLogger() {
 
     }
-
+    
+    /**
+     * Wpisywanie komunikatu z datą na strumień err.
+     * @param message 
+     */
     public static void log(String message) {
         if (on) {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
