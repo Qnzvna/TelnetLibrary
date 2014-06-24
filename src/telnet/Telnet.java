@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logs.MyLogger;
 
 /**
@@ -33,7 +35,8 @@ import logs.MyLogger;
  * <p>
  * Przykładowe, a zarazem podstawowe użycie klasy w Kontrolerze.
  * <p>
- * <pre>
+ * <
+ * pre>
  * {@code
  * telnet = new Telnet(host, port);
  * telnet.registerObserver(this);
@@ -43,21 +46,24 @@ import logs.MyLogger;
  * }
  * }
  * </pre>
- * 
- * Pełna biblioteka Telnet-u korzysta z modelu <b>Model-Widok-Kontroller</b>. 
- * Do poprawnego z niej korzystania korzystne są odpowiedni <b>Widok</b> oraz <b>Kontroler</b>.
- * 
- * <b>Kontroler</b> musi implementować {@link observer.TelnetObserver} oraz {@link observer.ViewObserver}. 
- * Tworzyć nową instancję Telnetu i następnie rejestrować ją jako obserwatora. 
- * Klasa <b>Widoku</b> musi implementować {@link observer.ViewObservable} i 
- * również powinna być zarejestrowana jako obserwator w <b>Kontrolerze</b>
- * 
- * Zastosowanie tego wzorca projektowego umożliwia i usprawnia korzystanie z biblioteki 
- * przy wykorzystaniu wszelakich interfejsów graficznych implementujących odpowiednie interfejsy.
- * 
+ *
+ * Pełna biblioteka Telnet-u korzysta z wzorca <b>Model-Widok-Kontroller</b>. Do
+ * poprawnego korzystania, konieczne jest <b>Widok</b> oraz <b>Kontroler</b>.
+ *
+ * <b>Kontroler</b> musi implementować {@link observer.TelnetObserver} oraz
+ * {@link observer.ViewObserver}, tworzyć nową instancję Telnetu i następnie
+ * rejestrować ją jako obserwatora. Klasa <b>Widoku</b> musi implementować
+ * {@link observer.ViewObservable} i również powinna być zarejestrowana jako
+ * obserwator w <b>Kontrolerze</b>
+ *
+ * Zastosowanie tego wzorca projektowego umożliwia i usprawnia korzystanie z
+ * biblioteki przy wykorzystaniu wszelakich interfejsów graficznych
+ * implementujących odpowiednie interfejsy.
+ *
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
-public class Telnet implements TelnetObservable {
+public class Telnet implements TelnetObservable, Runnable {
+
     /**
      * Tablica obserwatorów klasy telnet.
      */
@@ -70,21 +76,26 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Konstruktor klasy Telnet. <br>
-     * Pobiera za pomocą statycznej klasy ConnectionGiver odpowiedni bufor zapisu i odczytu.
+     * Pobiera za pomocą statycznej klasy ConnectionGiver odpowiedni bufor
+     * zapisu i odczytu.
+     *
      * @param hostname Adres ip serwera.
      * @param port Port na który jest wykonywane połączenie.
      * @throws UnknownHostException
-     * @throws IOException 
+     * @throws IOException
      */
     public Telnet(String hostname, int port) throws UnknownHostException, IOException {
         this.buffer = ConnectionGiver.returnBuffer(port, hostname);
     }
 
     /**
-     * Handshake Telnetu. <p>
-     * Tutaj zawiązywane jest początkowe połącznie, ustalane są wszelkie parametry połączenia.
-     * Metoda jest konieczna do wywołania przed metodą {@link telnet.Telnet#read() }.
-     * @throws IOException 
+     * Handshake Telnetu.
+     * <p>
+     * Tutaj zawiązywane jest początkowe połącznie, ustalane są wszelkie
+     * parametry połączenia. Metoda jest konieczna do wywołania przed metodą {@link telnet.Telnet#read()
+     * }.
+     *
+     * @throws IOException
      */
     public void handshake() throws IOException {
         ArrayList<Integer> list = new ArrayList<>();
@@ -116,9 +127,9 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Pisanie do serwera. Wysłanie tekstu do terminala serwera.
-     * @param text
-     * Tekst do wpisany do terminala.
-     * @throws IOException 
+     *
+     * @param text Tekst do wpisany do terminala.
+     * @throws IOException
      */
     public void write(String text) throws IOException {
         Option option = Option.getInstance(Options.ECHO);
@@ -145,8 +156,10 @@ public class Telnet implements TelnetObservable {
     }
 
     /**
-     * Odczytywanie informacji z terminala serwera i wywołanie wyświetlenia jej na odpowiedni Widok aplikacji.
-     * @throws IOException 
+     * Odczytywanie informacji z terminala serwera i wywołanie wyświetlenia jej
+     * na odpowiedni Widok aplikacji.
+     *
+     * @throws IOException
      */
     public void read() throws IOException {
         Option option = Option.getInstance(Options.ECHO);
@@ -162,11 +175,11 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Wysłanie pojedyńczej komendy do serwera Telnet.
-     * @param command
-     * Kod liczbowy komendy.
-     * @throws IOException 
+     *
+     * @param command Kod liczbowy komendy.
+     * @throws IOException
      */
-    public void sendCommand(int command) throws IOException{
+    public void sendCommand(int command) throws IOException {
         ArrayList<Integer> list = new ArrayList<>();
         for (int c : Commands.COMMANDS) {
             if (c == command) {
@@ -179,9 +192,9 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Przetwarzanie komendy i wykonanie specjalnej odpowiedzi.
-     * @param list
-     * Odebrane dane do przetworzenia w postaci listy.
-     * @throws IOException 
+     *
+     * @param list Odebrane dane do przetworzenia w postaci listy.
+     * @throws IOException
      */
     private void CommandProcess(ArrayList<Integer> list) throws IOException {
         int iterator = 0;
@@ -213,9 +226,9 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Sprawdzenie czy komenda jest zaimplementowana.
-     * @param code
-     * Kod liczbowy komendy.
-     * @return 
+     *
+     * @param code Kod liczbowy komendy.
+     * @return
      */
     private boolean isImplemented(int code) {
         boolean implemented = false;
@@ -229,8 +242,8 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Zarejestrowanie obserwatora.
-     * @param o 
-     * Obserwator
+     *
+     * @param o Obserwator
      */
     @Override
     public void registerObserver(TelnetObserver o) {
@@ -239,8 +252,8 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Usunięcie obserwatora.
-     * @param o 
-     * Obserwator
+     *
+     * @param o Obserwator
      */
     @Override
     public void removeObserver(TelnetObserver o) {
@@ -253,7 +266,8 @@ public class Telnet implements TelnetObservable {
     /**
      * Powiadomienie Kontrolera o informacji do wyświetlenia na Modelu. <br>
      * Przekazanie tej informacji w formie argumentu funkcji.
-     * @param text 
+     *
+     * @param text
      */
     @Override
     public void notifyTelnet(String text) {
@@ -261,18 +275,17 @@ public class Telnet implements TelnetObservable {
             o.updateTelnet(text);
         }
     }
-    
+
     /**
      * Wykonanie instrukcji dla komendy, przy odebraniu instrukcji DO
-     * @param list
-     * Lista danych.
-     * @param iterator
-     * Iterator
+     *
+     * @param list Lista danych.
+     * @param iterator Iterator
      * @param tmp
      * @param code
      * @param implemented
      * @param write
-     * @throws IOException 
+     * @throws IOException
      */
     private void doCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented, ArrayList<Integer> write) throws IOException {
         list.addAll(buffer.read(1));
@@ -293,13 +306,14 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Wykonanie instrukcji dla komendy, przy odebraniu instrukcji WILL
+     *
      * @param list
      * @param iterator
      * @param tmp
      * @param code
      * @param implemented
      * @param write
-     * @throws IOException 
+     * @throws IOException
      */
     private void willCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented, ArrayList write) throws IOException {
         list.addAll(buffer.read(1));
@@ -320,12 +334,13 @@ public class Telnet implements TelnetObservable {
 
     /**
      * Wykonanie instrukcji dla komendy, przy odebraniu instrukcji SB
+     *
      * @param list
      * @param iterator
      * @param tmp
      * @param code
      * @param implemented
-     * @throws IOException 
+     * @throws IOException
      */
     private void sbCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented) throws IOException {
         list.addAll(buffer.read(1));
@@ -365,6 +380,17 @@ public class Telnet implements TelnetObservable {
             }
         } else {
             //nothing too
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                this.read();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Telnet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
