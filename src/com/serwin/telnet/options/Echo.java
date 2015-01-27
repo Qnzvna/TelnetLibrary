@@ -14,13 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package telnet.options;
+package com.serwin.telnet.options;
 
-import connection.ConnectionBuffer;
 import java.io.IOException;
 import java.util.ArrayList;
-import telnet.Commands;
-import telnet.Options;
+
+import com.serwin.telnet.Commands;
+import com.serwin.telnet.Options;
+import com.serwin.telnet.connection.ConnectionBuffer;
 
 /**
  * Opcja Echo @see <a href =

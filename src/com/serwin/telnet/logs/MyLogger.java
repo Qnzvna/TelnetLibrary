@@ -14,17 +14,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.serwin.telnet.logs;
 
-package observer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
- * Interfejs podmiot obserwowany po stronie Telnetu. Implementuje wzorzec projektowy Obserwator.
+ * Klasa do logowania błędów i komunikatów
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
-public interface TelnetObservable {
+public class MyLogger {
+
+    public static boolean on = false;
+
+    private MyLogger() {
+
+    }
     
-    public void registerObserver(TelnetObserver o);
-    public void removeObserver(TelnetObserver o);
-    public void notifyTelnet(String text);
-    
+    /**
+     * Wpisywanie komunikatu z datą na strumień err.
+     * @param message 
+     */
+    public static void log(String message) {
+        if (on) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Calendar cal = Calendar.getInstance();
+            String date = dateFormat.format(cal.getTime());
+            System.err.println("TelnetLibrary-" + date + ": " + message);
+        }
+    }
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package connection;
+package com.serwin.telnet.connection;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

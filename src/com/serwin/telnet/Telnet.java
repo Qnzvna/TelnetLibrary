@@ -14,13 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package telnet;
-
-import connection.ConnectionBuffer;
-import connection.ConnectionGiver;
-import observer.TelnetObservable;
-import observer.TelnetObserver;
-import telnet.options.*;
+package com.serwin.telnet;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -28,7 +22,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import logs.MyLogger;
+
+import com.serwin.telnet.connection.ConnectionBuffer;
+import com.serwin.telnet.connection.ConnectionGiver;
+import com.serwin.telnet.logs.MyLogger;
+import com.serwin.telnet.observer.TelnetObservable;
+import com.serwin.telnet.observer.TelnetObserver;
+import com.serwin.telnet.options.*;
 
 /**
  * Główna klasa telnet.
@@ -50,10 +50,10 @@ import logs.MyLogger;
  * Pełna biblioteka Telnet-u korzysta z wzorca <b>Model-Widok-Kontroller</b>. Do
  * poprawnego korzystania, konieczne jest <b>Widok</b> oraz <b>Kontroler</b>.
  *
- * <b>Kontroler</b> musi implementować {@link observer.TelnetObserver} oraz
- * {@link observer.ViewObserver}, tworzyć nową instancję Telnetu i następnie
+ * <b>Kontroler</b> musi implementować {@link com.serwin.telnet.observer.TelnetObserver} oraz
+ * {@link com.serwin.telnet.observer.ViewObserver}, tworzyć nową instancję Telnetu i następnie
  * rejestrować ją jako obserwatora. Klasa <b>Widoku</b> musi implementować
- * {@link observer.ViewObservable} i również powinna być zarejestrowana jako
+ * {@link com.serwin.telnet.observer.ViewObservable} i również powinna być zarejestrowana jako
  * obserwator w <b>Kontrolerze</b>
  *
  * Zastosowanie tego wzorca projektowego umożliwia i usprawnia korzystanie z
@@ -92,7 +92,7 @@ public class Telnet implements TelnetObservable, Runnable {
      * Handshake Telnetu.
      * <p>
      * Tutaj zawiązywane jest początkowe połącznie, ustalane są wszelkie
-     * parametry połączenia. Metoda jest konieczna do wywołania przed metodą {@link telnet.Telnet#read()
+     * parametry połączenia. Metoda jest konieczna do wywołania przed metodą {@link com.serwin.telnet.Telnet#read()
      * }.
      *
      * @throws IOException

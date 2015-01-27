@@ -15,10 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package telnet.options;
+package com.serwin.telnet.options;
 
-import connection.ConnectionBuffer;
 import java.io.IOException;
+
+import com.serwin.telnet.connection.ConnectionBuffer;
 
 /**
  * Klasa po której dziedziczą wszystkie opcje.

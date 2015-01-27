@@ -14,14 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package connection;
+package com.serwin.telnet.connection;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import logs.MyLogger;
+
+import com.serwin.telnet.logs.MyLogger;
 
 /**
  * Bufor przechowujący potrzebne informacje do zarządzania połączenia oraz czytania i zapisywanie do odpowiednich strumieni.

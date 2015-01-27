@@ -15,18 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package observer;
-
-import java.io.IOException;
+package com.serwin.telnet.observer;
 
 /**
- * Interfejs podmiot obserwowany po stronie widoku. Implementuje wzorzec Obserwator.
+ * Interfejs podmiot obserwowany po stronie Telnetu. Implementuje wzorzec projektowy Obserwator.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
-public interface ViewObservable {
+public interface TelnetObservable {
     
-    public void registerObserver(ViewObserver o);
-    public void removeObserver(ViewObserver o);
-    public void notifyView(String text) throws IOException;
+    public void registerObserver(TelnetObserver o);
+    public void removeObserver(TelnetObserver o);
+    public void notifyTelnet(String text);
     
 }

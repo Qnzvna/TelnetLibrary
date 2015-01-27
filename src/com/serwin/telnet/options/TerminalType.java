@@ -14,14 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package telnet.options;
+package com.serwin.telnet.options;
 
-import connection.ConnectionBuffer;
 import java.io.IOException;
 import java.util.ArrayList;
-import telnet.Commands;
-import telnet.Options;
-import telnet.Settings;
+
+import com.serwin.telnet.Commands;
+import com.serwin.telnet.Options;
+import com.serwin.telnet.Settings;
+import com.serwin.telnet.connection.ConnectionBuffer;
 
 /**
  * Opcja Terminal Type <a href="http://www.ietf.org/rfc/rfc1091.txt">RFC1091</a>
