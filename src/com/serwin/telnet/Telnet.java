@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 TheDamianAbel <damian.abel.serwin@gmail.com>
+ * Copyright (C) 2014 TheDamianAbel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -162,7 +162,6 @@ public class Telnet implements TelnetObservable, Runnable {
      * @throws IOException
      */
     public void read() throws IOException {
-        Option option = Option.getInstance(Options.ECHO);
         ArrayList<Integer> list = buffer.read();
         StringBuilder text = new StringBuilder();
         for (Iterator<Integer> it = list.iterator(); it.hasNext();) {
@@ -218,6 +217,7 @@ public class Telnet implements TelnetObservable, Runnable {
             case Commands.SB:
                 sbCommand(list, iterator, tmp, code, implemented);
                 break;
+                
             case Commands.ARE_YOU_THERE:
                 write("Yes, I am here.");
                 break;
@@ -315,7 +315,7 @@ public class Telnet implements TelnetObservable, Runnable {
      * @param write
      * @throws IOException
      */
-    private void willCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented, ArrayList write) throws IOException {
+    private void willCommand(ArrayList<Integer> list, int iterator, int tmp, int code, boolean implemented, ArrayList<Integer> write) throws IOException {
         list.addAll(buffer.read(1));
         iterator++;
         tmp = list.get(iterator);
@@ -353,7 +353,7 @@ public class Telnet implements TelnetObservable, Runnable {
             iterator++;
             tmp = list.get(iterator);
             if (tmp == 0) { //IS
-                StringBuilder setting = null;
+                StringBuilder setting = new StringBuilder();
                 list.addAll(buffer.read(1));
                 while (true) {
                     list.addAll(buffer.read(1));

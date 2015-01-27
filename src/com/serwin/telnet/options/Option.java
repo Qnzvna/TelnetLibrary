@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 TheDamianAbel <damian.abel.serwin@gmail.com>
+ * Copyright (C) 2014 TheDamianAbel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ import java.io.IOException;
 import com.serwin.telnet.connection.ConnectionBuffer;
 
 /**
- * Klasa po której dziedziczą wszystkie opcje.
+ * Abstrakcyjna klasa po której dziedziczą wszystkie opcje.
  * @author TheDamianAbel <damian.abel.serwin@gmail.com>
  */
 public abstract class Option {

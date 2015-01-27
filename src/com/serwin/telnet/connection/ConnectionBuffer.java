@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 TheDamianAbel <damian.abel.serwin@gmail.com>
+ * Copyright (C) 2014 TheDamianAbel
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,12 +32,9 @@ public class ConnectionBuffer {
 
     private final BufferedInputStream reader;
     private final BufferedOutputStream writer;
-    private final Socket socket;
-
     ConnectionBuffer(BufferedInputStream reader, BufferedOutputStream writer, Socket socket) {
         this.reader = reader;
         this.writer = writer;
-        this.socket = socket;
     }
 
     /**
